@@ -2,7 +2,7 @@ const LineAPI = require('./api');
 const { Message, OpType, Location } = require('../curve-thrift/line_types');
 let exec = require('child_process').exec;
 
-const myBot = ['u17102931d9ba9bb2cc0940d774cce06f','ucb0022613a97ff32657ebdea72b0dc56','uf649c932b1c25523ded0199b2d5d7e63','ua8d7ef4d1ad106fbf7625f3cb154c815'];
+const myBot = ['ucb0022613a97ff32657ebdea72b0dc56','u17102931d9ba9bb2cc0940d774cce06f','ua812fe52037a05284ebcb94f4c88b5e','udb84926baa5d2f2916a46ad5e2149e27','u704fc221fcf63211594d9e4bb8a9c035']
 
 function isAdminOrBot(param) {
     return myBot.includes(param);
@@ -80,7 +80,7 @@ class LINE extends LineAPI {
 
         if(operation.type == 13) { // diinvite
             if(isAdminOrBot(operation.param2)) {
-                return this._acceptGroupInvitation(operation.param1);
+                return this._acceptGroupInvitation(operation.param1,[operation.param3]);
             } else {
                 return this._cancel(operation.param1,myBot);
             }
@@ -205,8 +205,12 @@ class LINE extends LineAPI {
         if(txt == 'elfox' || txt == 'fox') {
             this._sendMessage(seq, 'Cowok Ganteng dan Ganas 😎😎😎😎');
         }
-
-        if(txt == 'speed') {
+	    
+        if(txt == 'respon' && isAdminOrBot(seq.from)) {
+            this._sendMessage(seq, 'Siap Bous Elfox~');
+        }
+	    
+        if(txt == 'gas') {
             const curTime = (Date.now() / 1000);
             await this._sendMessage(seq,'Elfox gas ini mah.....');
             const rtime = (Date.now() / 1000) - curTime;
@@ -257,7 +261,14 @@ class LINE extends LineAPI {
         if(txt == 'setpoint for check reader .') {
             this.searchReader(seq);
         }
-
+	    
+        if(txt == 'creator') {
+           let txt = await this._sendMessage(seq, 'This Is My Bos :');
+           seq.contentType=13;
+           seq.contentMetadata = { mid: 'u17102931d9ba9bb2cc0940d774cce06f' };
+           this._client.sendMessage(0, seq);
+        }
+	    
         if(txt == 'clearall') {
             this.checkReader = [];
         }
@@ -271,7 +282,7 @@ class LINE extends LineAPI {
             this._sendMessage(seq,`Your ID: ${seq.from}`);
         }
 
-        if(txt == 'tag all'){
+        if(txt == 'panggilin'){
 let { listMember } = await this.searchGroup(seq.to);
             const mentions = await this.mention(listMember);
             seq.contentMetadata = mentions.cmddata;
@@ -305,7 +316,7 @@ let { listMember } = await this.searchGroup(seq.to);
 
         if(cmd == 'spm' && isAdminOrBot(seq.from)) { // untuk spam invite contoh: spm <mid>
             for (var i = 0; i < 4; i++) {
-                this._createGroup(`spam`,payload);
+                this._createGroup(`ELFOX SPAM BY ELFOX KILLER`,payload);
             }
         }
         
