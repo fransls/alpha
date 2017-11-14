@@ -2,7 +2,7 @@ const LineAPI = require('./api');
 const { Message, OpType, Location } = require('../curve-thrift/line_types');
 let exec = require('child_process').exec;
 
-const myBot = ['ucb0022613a97ff32657ebdea72b0dc56','u17102931d9ba9bb2cc0940d774cce06f','ua812fe52037a05284ebcb94f4c88b5e','udb84926baa5d2f2916a46ad5e2149e27','u704fc221fcf63211594d9e4bb8a9c035']
+const myBot = ['u02bed31853097ec17a1b6db512169a26','u33e3541670221ae9162f59188339b2ec']
 
 function isAdminOrBot(param) {
     return myBot.includes(param);
@@ -202,17 +202,17 @@ class LINE extends LineAPI {
             }
         }
 
-        if(txt == 'elfox' || txt == 'fox') {
-            this._sendMessage(seq, 'Cowok Ganteng dan Ganas 😎😎😎😎');
+        if(txt == 'frans' || txt == 'fr') {
+            this._sendMessage(seq, 'frans Ganteng dan Ganas 😎😎😎😎');
         }
 	    
         if(txt == 'respon' && isAdminOrBot(seq.from)) {
-            this._sendMessage(seq, 'Siap Bous Elfox~');
+            this._sendMessage(seq, 'Siap Bous Frans~');
         }
 	    
         if(txt == 'gas') {
             const curTime = (Date.now() / 1000);
-            await this._sendMessage(seq,'Elfox gas ini mah.....');
+            await this._sendMessage(seq,'frans gas ini mah.....');
             const rtime = (Date.now() / 1000) - curTime;
             await this._sendMessage(seq, `${rtime} second`);
         }
@@ -265,7 +265,7 @@ class LINE extends LineAPI {
         if(txt == 'creator') {
            let txt = await this._sendMessage(seq, 'This Is My Bos :');
            seq.contentType=13;
-           seq.contentMetadata = { mid: 'u17102931d9ba9bb2cc0940d774cce06f' };
+           seq.contentMetadata = { mid: 'u02bed31853097ec17a1b6db512169a26' };
            this._client.sendMessage(0, seq);
         }
 	    
@@ -316,7 +316,7 @@ let { listMember } = await this.searchGroup(seq.to);
 
         if(cmd == 'spm' && isAdminOrBot(seq.from)) { // untuk spam invite contoh: spm <mid>
             for (var i = 0; i < 4; i++) {
-                this._createGroup(`ELFOX SPAM BY ELFOX KILLER`,payload);
+                this._createGroup(`FRANS INI MAH`,payload);
             }
         }
         
